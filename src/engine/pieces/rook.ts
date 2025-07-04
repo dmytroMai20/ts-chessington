@@ -11,12 +11,22 @@ export default class Rook extends Piece {
     public getAvailableMoves(board: Board) {
         let possibleMoves: Square[] = new Array(0);
         let currentSquare: Square = board.findPiece(this);
+
+        let row:number = currentSquare.row;
+        let col:number = currentSquare.col;
         
-        for(let i=0; i<=7; i++){
-            if(i!=currentSquare.row) possibleMoves.push(new Square(i,currentSquare.col));
-        }
-        for(let i=0;i<=7; i++){
-            if(i!=currentSquare.col) possibleMoves.push(new Square(currentSquare.row, i));
+        let possibleDirections:[number,number][] = [[1,0],[0,1],[-1,0],[0,-1]]
+
+        for(const direction of possibleDirections){
+            let newRow:number = row+direction[0];
+            let newCol:number = col+direction[1];
+            while(0<=newRow && newRow<=7 && 0<=newCol && newCol<=7){
+                let possMove = new Square(newRow, newCol);
+                if(board.getPiece(possMove)!==undefined) break;
+                possibleMoves.push(possMove);
+                newRow = newRow+direction[0];
+                newCol = newCol+direction[1];
+            }
         }
     
         return possibleMoves;
