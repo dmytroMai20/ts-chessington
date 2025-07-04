@@ -22,6 +22,7 @@ export default class Bishop extends Piece {
             let newCol:number = col+diagonal[1];
             while(0<=newRow && newRow<=7 && 0<=newCol && newCol<=7){
                 let possMove = new Square(newRow, newCol);
+                if(board.getPiece(possMove)!==undefined) break;
                 possibleMoves.push(possMove);
                 newRow = newRow+diagonal[0];
                 newCol = newCol+diagonal[1];
