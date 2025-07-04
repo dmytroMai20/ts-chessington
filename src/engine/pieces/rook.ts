@@ -12,7 +12,6 @@ export default class Rook extends Piece {
         let possibleMoves: Square[] = new Array(0);
         let currentSquare: Square = board.findPiece(this);
         
-        //let playerDirection: number = this.player == Player.WHITE ? 1 : -1;
         for(let i=0; i<=7; i++){
             if(i!=currentSquare.row) possibleMoves.push(new Square(i,currentSquare.col));
         }
