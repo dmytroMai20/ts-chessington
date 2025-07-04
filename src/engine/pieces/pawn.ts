@@ -2,6 +2,7 @@ import Piece from './piece';
 import Player from '../player';
 import Board from '../board';
 import Square from '../square';
+import King from './king';
 
 export default class Pawn extends Piece {
     public constructor(player: Player) {
@@ -26,6 +27,22 @@ export default class Pawn extends Piece {
             if(Square.validSquare(twoSquareMove)){
                 if(board.getPiece(twoSquareMove)===undefined && board.getPiece(oneSquareMove)===undefined)
                 possibleMoves.push(twoSquareMove);
+            }
+        }
+        if(!(Square.validSquare(oneSquareMove))){
+            return possibleMoves;
+        }
+        let posibbleTakeLeft:Square = new Square(oneSquareMove.row, oneSquareMove.col-1);
+        let posibbleTakeRight:Square = new Square(oneSquareMove.row, oneSquareMove.col+1);
+
+        if(board.getPiece(posibbleTakeLeft)!==undefined){
+            if(board.getPiece(posibbleTakeLeft)?.player !== this.player && !(board.getPiece(posibbleTakeLeft) instanceof King)){
+                possibleMoves.push(posibbleTakeLeft);
+            }
+        }
+        if(board.getPiece(posibbleTakeRight)!==undefined){
+            if(board.getPiece(posibbleTakeRight)?.player !== this.player && !(board.getPiece(posibbleTakeRight) instanceof King)){
+                possibleMoves.push(posibbleTakeRight);
             }
         }
 
