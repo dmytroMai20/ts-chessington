@@ -21,7 +21,9 @@ export default class King extends Piece {
             let newCol:number = col + possibleJump[1];
             if(0<=newRow && newRow<=7 && 0<=newCol && newCol<=7){
                 let jumpSquare = new Square(newRow, newCol);
-                possibleMoves.push(jumpSquare);
+                if((board.getPiece(jumpSquare)?.player !== this.player && !(board.getPiece(jumpSquare) instanceof King)) || board.getPiece(jumpSquare)===undefined){
+                    possibleMoves.push(jumpSquare);
+                }
             }
         }
         return possibleMoves;
