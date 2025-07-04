@@ -14,12 +14,16 @@ export default class Pawn extends Piece {
         
         let playerDirection: number = this.player == Player.WHITE ? 1 : -1;
         let oneSquareMove: Square = new Square(currentSquare.row + playerDirection, currentSquare.col);
-        possibleMoves.push(oneSquareMove);
+        if(board.getPiece(oneSquareMove)===undefined){
+            possibleMoves.push(oneSquareMove);
+        }
         
         let startingRow: number = this.player == Player.WHITE ? 1 : 6;
         if(currentSquare.row == startingRow){
             let twoSquareMove: Square = new Square(currentSquare.row + 2 * playerDirection, currentSquare.col);
-            possibleMoves.push(twoSquareMove);
+            if(board.getPiece(twoSquareMove)===undefined && board.getPiece(oneSquareMove)===undefined){
+                possibleMoves.push(twoSquareMove);
+            }
         }
 
         return possibleMoves;
