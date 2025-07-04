@@ -2,7 +2,7 @@ import Piece from './piece';
 import Player from '../player';
 import Board from '../board';
 import Square from '../square';
-
+import King from './king';
 export default class Queen extends Piece {
     public constructor(player: Player) {
         super(player);
@@ -22,7 +22,10 @@ export default class Queen extends Piece {
             let newCol:number = col+diagonal[1];
             while(0<=newRow && newRow<=7 && 0<=newCol && newCol<=7){
                 let possMove = new Square(newRow, newCol);
-                if(board.getPiece(possMove)!==undefined) break;
+                if(board.getPiece(possMove)!==undefined){
+                    if(board.getPiece(possMove)?.player !== this.player && !(board.getPiece(possMove) instanceof King)) possibleMoves.push(possMove);
+                    break;
+                } 
                 possibleMoves.push(possMove);
                 newRow = newRow+diagonal[0];
                 newCol = newCol+diagonal[1];
